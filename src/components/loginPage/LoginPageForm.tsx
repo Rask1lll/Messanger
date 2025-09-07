@@ -6,6 +6,10 @@ import SignUp from "./Signup";
 const LoginPageForm = () => {
   const [registerPage, setRegisterPage] = useState<boolean>(false);
 
+  function changeMode() {
+    setRegisterPage(!registerPage);
+  }
+
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -45,7 +49,7 @@ const LoginPageForm = () => {
           </div>
         </div>
         <div className=" flex flex-col items-center h-full w-[100%]">
-          {!registerPage ? <SignIn /> : <SignUp />}
+          {!registerPage ? <SignIn /> : <SignUp changeMode={changeMode} />}
         </div>
       </div>
     </div>

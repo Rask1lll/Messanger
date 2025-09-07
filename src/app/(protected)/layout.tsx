@@ -42,7 +42,7 @@ export default function ProtectedLayout({
   }
 
   return (
-    <div className="p-3">
+    <div className="p-3 h-screen flex flex-col">
       <NavBar />
       {children}
     </div>

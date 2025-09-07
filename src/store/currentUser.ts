@@ -32,11 +32,6 @@ const useAuthUser = create<AuthActions>()(
     }),
     {
       name: "User",
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({
-        email: state.email,
-        avatarURL: state.avatarURL,
-      }),
     }
   )
 );

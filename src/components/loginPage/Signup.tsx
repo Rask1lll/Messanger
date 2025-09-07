@@ -9,7 +9,7 @@ type FormData = {
   verPassword: string;
 };
 
-const SignUp = () => {
+const SignUp = ({ changeMode }: { changeMode: () => void }) => {
   const { setMessage } = useAlertStore();
   const {
     register,
@@ -19,7 +19,7 @@ const SignUp = () => {
 
   const registering = async (data: FormData) => {
     if (data.verPassword !== data.password) {
-      alert("Password is not symmetric");
+      setMessage("Password is not symmetric");
       return;
     }
 
@@ -35,12 +35,17 @@ const SignUp = () => {
       body: reqContent,
     });
 
+    if (res.ok) {
+      setMessage("User registered KAIF");
+      changeMode();
+    }
+
     const registeringResult = await res.json();
 
     if (registeringResult.message) {
-      setMessage(registeringResult.message);
+      return setMessage(registeringResult.message);
     } else if (!res.ok) {
-      setMessage(`Registration Error`);
+      return setMessage(`Registration Error`);
     }
   };
 

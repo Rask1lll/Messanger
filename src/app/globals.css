@@ -42,3 +42,18 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #0017c9;
+  height: 20%;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #e0e0e0;
+
+  height: 20%;
+}
