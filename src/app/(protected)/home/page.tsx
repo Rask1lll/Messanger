@@ -85,45 +85,6 @@ const HomePage = () => {
   useEffect(() => {
     setAvatar(avatarURL);
   }, [avatarURL]);
-
-  async function handleUploadImage() {
-    const input = avatarRef.current;
-    if (!input || !input.files || input.files.length === 0) return;
-
-    const file = input.files[0];
-    0;
-    if (file.type !== "image/png") {
-      setMessage("File type error");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("avatar", file);
-
-    try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(`http://localhost:4000/api/me/avatar`, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `Upload failed (${res.status})`);
-      }
-
-      const data: { avatarUrl: string } = await res.json();
-
-      setAvatarURL(data.avatarUrl);
-      setAvatar(data.avatarUrl);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   const [contacts, setContacts] = useState<JSX.Element[]>();
 
   const chatTail = useRef<HTMLDivElement>(null);
