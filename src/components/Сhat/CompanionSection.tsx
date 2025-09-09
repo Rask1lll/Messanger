@@ -5,7 +5,7 @@ export default function CompanionSection() {
   const { companion } = useChatStore();
   return (
     <div
-      className={`flex gap-7 min-h-[15%] items-center  border-[3px] border-gray-300 rounded-t-4xl p-8`}
+      className={`flex gap-7 box-border h-full px-8 items-center  border-[3px] border-gray-300 rounded-t-4xl `}
     >
       <div>
         <Image

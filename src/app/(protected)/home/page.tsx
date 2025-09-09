@@ -130,82 +130,84 @@ const HomePage = () => {
   }, []);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1.0 }}
-        transition={{ duration: 1 }}
-        className={`  h-[94%] flex flex-col ${
-          userSearchFocused && "opacity-70"
-        }  `}
-      >
-        <CompanionSection />
-        <div className=" min-h-0 flex max-h-full bg-[url('/chat_bg.jpg')] bg-cover  ">
-          <div className="relative max-w-[30%] ">
-            <div className=" z-10 top-2 left-2 w-[90%] flex justify-center absolute ">
-              <motion.div
-                initial={{ x: -200 }}
-                animate={{ x: 0 }}
-                transition={{ duration: 1 }}
-                className="w-[80%]"
-              >
-                <div
-                  className={`flex items-center px-2 gap-3 ${
-                    userSearchFocused &&
-                    "outline-blue-600 blur-none shadow-xl shadow-blue-300 "
-                  } rounded-2xl transition-all bg-white outline-1 overflow-hidden duration-500`}
+    <div className="h-full">
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1.0 }}
+          transition={{ duration: 1 }}
+          className="h-full"
+        >
+          <div className="h-[15%]">
+            <CompanionSection />
+          </div>
+          <div className=" min-h-0 flex h-[85%] bg-[url('/chat_bg.jpg')]   ">
+            <div className="relative max-w-[30%] ">
+              <div className=" z-10 top-2 left-2 w-[90%] flex justify-center absolute ">
+                <motion.div
+                  initial={{ x: -200 }}
+                  animate={{ x: 0 }}
+                  transition={{ duration: 1 }}
+                  className="w-[80%] min-w-[144px]"
                 >
-                  <Image
-                    src={"/search_icon.png"}
-                    width={25}
-                    height={25}
-                    alt=""
-                  />
-                  <input
-                    type="text"
-                    placeholder="Search chats"
-                    className="ring-0 outline-0 py-2"
-                    onFocus={() => {
-                      setUserSearchFocused(true);
-                    }}
-                    onBlur={() => {
-                      setUserSearchFocused(false);
-                    }}
-                  />
-                </div>
-              </motion.div>
+                  <div
+                    className={`flex items-center px-2 gap-3 ${
+                      userSearchFocused &&
+                      "outline-blue-600 blur-none shadow-xl shadow-blue-300 "
+                    } rounded-2xl  transition-all bg-white outline-1 overflow-hidden duration-500`}
+                  >
+                    <Image
+                      src={"/search_icon.png"}
+                      width={25}
+                      height={25}
+                      alt=""
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search chats"
+                      className="ring-0 outline-0 py-2"
+                      onFocus={() => {
+                        setUserSearchFocused(true);
+                      }}
+                      onBlur={() => {
+                        setUserSearchFocused(false);
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              </div>
+              <div
+                className={` overflow-x-hidden custom-scroll max-h-[100%] bg-white flex flex-col sm:font-semibold sm:text-xl text-gray-600 border-2 border-r-0 border-t-0 border-blue-300 ${
+                  userSearchFocused && "opacity-100"
+                } `}
+              >
+                <div className="p-[10%]" />
+                {contacts}
+              </div>
             </div>
-            <div
-              className={` overflow-x-hidden custom-scroll max-h-[100%] bg-white flex flex-col sm:font-semibold sm:text-xl text-gray-600 border-2 border-r-0 border-t-0 border-blue-300 ${
-                userSearchFocused && "opacity-100"
-              } `}
-            >
-              <div className="p-[10%]" />
-              {contacts}
+            <div className="relative  w-[80%] ">
+              <div className="h-full pb-20 overflow-y-scroll">
+                {messages.map((el, i) => {
+                  {
+                    return el.from === email ? (
+                      <OutgoingMessage message={el} isMerge={isMerge(i)} />
+                    ) : (
+                      <IncomingMessage message={el} isMerge={isMerge(i)} />
+                    );
+                  }
+                })}
+
+                <div ref={chatTail} />
+              </div>
+
+              <div className="absolute w-full bottom-[5%]  ">
+                <Chat sendMessage={sendMessage}></Chat>
+              </div>
             </div>
           </div>
-          <div className="relative  w-[80%] ">
-            <div className="h-full pb-20 overflow-y-scroll">
-              {messages.map((el, i) => {
-                {
-                  return el.from === email ? (
-                    <OutgoingMessage message={el} isMerge={isMerge(i)} />
-                  ) : (
-                    <IncomingMessage message={el} isMerge={isMerge(i)} />
-                  );
-                }
-              })}
-
-              <div ref={chatTail} className="" />
-            </div>
-
-            <div className="absolute w-full bottom-5  ">
-              <Chat sendMessage={sendMessage}></Chat>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 

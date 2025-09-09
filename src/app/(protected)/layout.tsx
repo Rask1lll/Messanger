@@ -42,9 +42,11 @@ export default function ProtectedLayout({
   }
 
   return (
-    <div className="p-3 h-screen flex flex-col">
-      <NavBar />
-      {children}
+    <div className="p-3 h-screen ">
+      <div className="h-[10%]">
+        <NavBar />
+      </div>
+      <div className="h-[90%]">{children}</div>
     </div>
   );
 }
