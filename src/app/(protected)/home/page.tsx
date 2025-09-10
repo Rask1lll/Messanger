@@ -141,7 +141,7 @@ const HomePage = () => {
           <div className="h-[15%]">
             <CompanionSection />
           </div>
-          <div className=" min-h-0 flex h-[85%] bg-[url('/chat_bg.jpg')]   ">
+          <div className=" min-h-0 flex h-[85%] bg-[url('/chat_bg.jpg')] ">
             <div className="relative max-w-[30%] ">
               <div className=" z-10 top-2 left-2 w-[90%] flex justify-center absolute ">
                 <motion.div
