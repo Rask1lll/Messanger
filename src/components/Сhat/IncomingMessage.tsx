@@ -13,12 +13,14 @@ export default function IncomingMessage({
         isMerge ? "py-1" : "py-2"
       } p-4 text-end`}
     >
-      <div className=" max-w-[50%]">
-        {!isMerge && <h5 className="font-semibold">{message.from}</h5>}
+      <div className="max-w-[70%] sm:max-w-[50%]">
+        {!isMerge && (
+          <h5 className="font-semibold text-left">{message.from}</h5>
+        )}
         <p
-          className={`bg-blue-400 ${
+          className={`bg-white border- border-blue-600 ${
             isMerge ? `py-2` : "py-3"
-          } p-3 text-white text-left wrap-anywhere flex rounded-2xl`}
+          } p-3 text-left wrap-anywhere sm:text-base text-sm flex rounded-2xl`}
         >
           {message.content}
         </p>

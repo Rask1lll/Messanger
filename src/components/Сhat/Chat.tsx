@@ -29,7 +29,7 @@ export default function Chat({
   return (
     <div className="sm:h-[52px] h-[30px] ">
       <div className=" flex min-h-0 justify-center items-center gap-2">
-        <div className="bg-blue-100 w-[50%] lg:w-[40%] min-w-[300px] flex p-2 px-3 pl-5 rounded-4xl gap-7">
+        <div className="bg-blue-100 lg:w-[40%] w-[70%] min-w-[300px] flex p-2 px-3 pl-5 rounded-4xl gap-7">
           <label
             htmlFor="sendFile"
             className=" flex items-center hover:cursor-pointer bg-blue-50 p-2 rounded-full hover:bg-blue-200 transition:colors duration-250 "

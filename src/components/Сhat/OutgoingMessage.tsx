@@ -13,12 +13,12 @@ export default function OutgoingMessage({
         isMerge ? "py-1" : "py-2"
       } p-4 text-end`}
     >
-      <div className="flex flex-col items-end max-w-[50%]">
+      <div className="flex flex-col items-end max-w-[70%] sm:max-w-[50%]">
         {!isMerge && <h1 className="font-semibold">{message.from}</h1>}
         <p
           className={`bg-green-400 ${
             isMerge ? `py-2` : "py-3"
-          } p-3 max-w-[100%] wrap-anywhere w-fit text-white text-right rounded-2xl`}
+          } p-3 max-w-[100%] wrap-anywhere w-fit text-white sm:text-base text-sm text-right rounded-2xl`}
         >
           {message.content}
         </p>

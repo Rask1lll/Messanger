@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 const re = [
   {
-    name: "reres1res1res1res1res1res1s1",
+    name: "reres1res1",
     avatar: "/ava.jpg",
   },
   {
@@ -63,13 +63,9 @@ const re = [
 ];
 
 const HomePage = () => {
-  const { email, setAvatarURL, avatarURL } = useAuthUser();
-  const [avatar, setAvatar] = useState<string | null>("");
-  const avatarRef = useRef<HTMLInputElement | null>(null);
+  const { email } = useAuthUser();
   const [userSearchFocused, setUserSearchFocused] = useState<boolean>(false);
   const { addMessage, messages } = useChatStore();
-
-  const { setMessage } = useAlertStore();
 
   function sendMessage(message: Message) {
     addMessage(message);
@@ -81,11 +77,6 @@ const HomePage = () => {
       block: "start",
     });
   }, [messages]);
-
-  useEffect(() => {
-    setAvatar(avatarURL);
-  }, [avatarURL]);
-  const [contacts, setContacts] = useState<JSX.Element[]>();
 
   const chatTail = useRef<HTMLDivElement>(null);
 
@@ -106,28 +97,6 @@ const HomePage = () => {
     }
     return false;
   }
-  let temp;
-  function showContacts() {
-    temp = re.map((contact) => {
-      return (
-        <div
-          key={contact.name}
-          className="not-last:border-b-[1px] gap-2 p-0 py-5 sm:px-5 not-sm:p-5 items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
-        >
-          <div className="relative w-20 h-20 shrink-0 rounded-full overflow-hidden ">
-            <Image src={contact.avatar} alt="" fill className="object-cover" />
-          </div>
-
-          <div className="min-w-0">{contact.name}</div>
-        </div>
-      );
-    });
-    setContacts(temp);
-  }
-
-  useEffect(() => {
-    showContacts();
-  }, []);
 
   return (
     <div className="h-full">
@@ -138,12 +107,12 @@ const HomePage = () => {
           transition={{ duration: 1 }}
           className="h-full"
         >
-          <div className="h-[15%]">
+          <div className="sm:h-[15%] h-[10%]">
             <CompanionSection />
           </div>
-          <div className=" min-h-0 flex h-[85%] bg-[url('/chat_bg.jpg')] ">
-            <div className="relative max-w-[30%] ">
-              <div className=" z-10 top-2 left-2 w-[90%] flex justify-center absolute ">
+          <div className="relative not-sm:flex-col flex h-[90%] sm:h-[85%] ">
+            <div className="relative min-w-[220px] max-w-full not-sm:h-[20%] sm:max-w-[30%] max-h-full ">
+              <div className=" z-10 sm:top-2  left-2 sm:w-[90%] flex justify-center absolute ">
                 <motion.div
                   initial={{ x: -200 }}
                   animate={{ x: 0 }}
@@ -151,21 +120,22 @@ const HomePage = () => {
                   className="w-[80%] min-w-[144px]"
                 >
                   <div
-                    className={`flex items-center px-2 gap-3 ${
+                    className={`flex items-center px-2 gap-1 sm:gap-3 ${
                       userSearchFocused &&
                       "outline-blue-600 blur-none shadow-xl shadow-blue-300 "
-                    } rounded-2xl  transition-all bg-white outline-1 overflow-hidden duration-500`}
+                    } rounded-2xl not-sm:w-[70%] transition-all bg-white outline-1 overflow-hidden duration-500`}
                   >
                     <Image
                       src={"/search_icon.png"}
                       width={25}
                       height={25}
                       alt=""
+                      className="not-sm:w-5 not-sm:h-5"
                     />
                     <input
                       type="text"
                       placeholder="Search chats"
-                      className="ring-0 outline-0 py-2"
+                      className="ring-0 outline-0 sm:py-2  "
                       onFocus={() => {
                         setUserSearchFocused(true);
                       }}
@@ -177,16 +147,32 @@ const HomePage = () => {
                 </motion.div>
               </div>
               <div
-                className={` overflow-x-hidden custom-scroll max-h-[100%] bg-white flex flex-col sm:font-semibold sm:text-xl text-gray-600 border-2 border-r-0 border-t-0 border-blue-300 ${
-                  userSearchFocused && "opacity-100"
-                } `}
+                className={`sm:pt-14 pt-5 gap-2 not-sm:overflow-y-hidden pb-1 p-2 no-scroll border-1 rounded-2x border-blue-600 border-t-0 sm:overflow-x-hidden not-sm:overflow-x-scroll overflow-x-scroll h-full max-h-[100%] bg-white flex sm:flex-col sm:font-semibold sm:text-xl text-gray-600 `}
               >
-                <div className="p-[10%]" />
-                {contacts}
+                {re.map((contact) => {
+                  return (
+                    <div
+                      key={contact.name}
+                      className="p-3 flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] not-last:border-b-[1px] wrap-anywhere h-[100%]  sm:h-[20%]  not-sm:h-full md:p-5 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
+                    >
+                      <div className="relative sm:w-20 not-sm:mb-0 sm:h-20 w-20 h-20 shrink-0 rounded-full overflow-hidden ">
+                        <Image
+                          src={contact.avatar}
+                          alt=""
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className=" text-center max-[700px]:text-[16px]">
+                        {contact.name}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-            <div className="relative  w-[80%] ">
-              <div className="h-full pb-20 overflow-y-scroll">
+            <div className="relative not-sm:h-[80%] h-[100%] ">
+              <div className="h-[100%] sm:pt-12 overflow-hidden custom-scroll pb-20 rounded-none chat_bg overflow-y-scroll">
                 {messages.map((el, i) => {
                   {
                     return el.from === email ? (
@@ -200,7 +186,7 @@ const HomePage = () => {
                 <div ref={chatTail} />
               </div>
 
-              <div className="absolute w-full bottom-[5%]  ">
+              <div className="absolute w-full sm:bottom-[3%] bottom-10 ">
                 <Chat sendMessage={sendMessage}></Chat>
               </div>
             </div>

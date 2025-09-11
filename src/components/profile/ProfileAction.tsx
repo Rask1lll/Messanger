@@ -1,4 +1,4 @@
-export type Color = "blue" | "red" | "green" | "yellow";
+export type Color = "orange" | "red" | "green" | "purple";
 export default function ProfileActions({
   em = "",
   content,
