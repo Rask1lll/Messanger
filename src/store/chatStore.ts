@@ -77,9 +77,15 @@ const message: Message[] = [
     to: "",
   },
   {
-    from: "RASSUL",
+    from: "RASUL",
     content: `
     message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
+    createdAt: new Date(),
+    to: "",
+  },
+  {
+    from: "ayanat",
+    content: `alem`,
     createdAt: new Date(),
     to: "",
   },

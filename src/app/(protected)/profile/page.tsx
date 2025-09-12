@@ -78,23 +78,19 @@ export default function Profile() {
                 </h2>
               </div>
             </div>
-            <div className="bg-[rgba(201,123,255,0.65)] mt-[5%] rounded-lg p-4">
+            <div className="bg-[rgba(74,127,196,0.25)] mt-[5%] rounded-lg p-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
               debitis suscipit, nemo praesentium unde impedit dolor quia
               inventore labore enim at repellat corporis, similique accusamus
               velit blanditiis perspiciatis excepturi esse!
             </div>
           </div>
-          <div className="md:w-1/3 w-full rounded-4xl ring-2 min-w-70 h-[400px] min-h-100 max-h-[400px] p-5 ring-gray-400 bg-gray-200">
+          <div className="md:w-1/3 w-full rounded-4xl ring-2 min-w-70 h-[400px] min-h-100 max-h-[400px] p-5 ring-blue-300 bg-linear-60 ">
             <div className="flex flex-col justify-between h-[100%] flex-grow">
-              <ProfileActions em="💬" color={"green"} content="Send message" />
-              <ProfileActions
-                em="📱"
-                color={"purple"}
-                content="Become friends"
-              />
-              <ProfileActions em="💌" color={"orange"} content="Send gift" />
-              <ProfileActions em="💣" color={"red"} content="Report user" />
+              <ProfileActions em="💬" content="Send message" />
+              <ProfileActions em="📱" content="Become friends" />
+              <ProfileActions em="💌" content="Send gift" />
+              <ProfileActions em="💣" content="Report user" />
             </div>
           </div>
         </div>

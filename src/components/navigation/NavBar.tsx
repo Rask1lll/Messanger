@@ -10,30 +10,26 @@ export default function NavBar() {
   const logout = useLogout();
   const [burgerOpen, setBurgerOpen] = useState<boolean>();
   return (
-    <div className="z-100 relative">
-      <div className="not-sm:hidden">
-        <div className="flex box-border items-center mb-2 p-3 px-3 pr-6 rounded-4xl justify-between ">
-          <ProfileBar></ProfileBar>
-          <button
-            onClick={() => {
-              logout();
-            }}
-            className="text-xl p-3 h-[80%] px-5 hover:bg-red-900 transition-all:easy duration-300 hover:cursor-pointer bg-[rgba(255,0,0,0.55)] ring-1 ring-red-600 text-white rounded-xl"
-          >
-            LogOut
-          </button>
-        </div>
-      </div>
-      <div className="not-sm:flex items-center relative hidden">
-        <div className="flex text-xl gap-2 font-semibold bg-blue-300 rounded-2xl p-2 text-gray-500">
-          <Image src={"/logo.png"} width={30} height={30} alt=""></Image>
+    <div className="max-h-full">
+      <div className="flex select-none  relative">
+        <div className="flex items-center max-h-full not-sm:p-1 text-xl gap-2 font-semibold bg-blue-300 rounded-2xl p-2 text-gray-500">
+          <Image
+            src={"/logo.png"}
+            width={0}
+            height={0}
+            alt=""
+            quality={100}
+            className="sm:w-13 w-10 h-10 sm:h-13 object-cover "
+            priority
+            unoptimized={true}
+          ></Image>
           Alem
         </div>
         <div className="ml-auto mr-4 ">
           <div
             className={`${
               !burgerOpen ? `rotate-90` : "rotate-0"
-            } text-2xl  transition-all hover:cursor-pointer duration-200 origin-center `}
+            } text-2xl  transition-all hover:cursor-pointer duration-500 origin-center `}
             onClick={() => {
               setBurgerOpen(!burgerOpen);
             }}
@@ -47,12 +43,12 @@ export default function NavBar() {
           <motion.div
             initial={{ x: 300 }}
             animate={{ x: 0 }}
-            exit={{ x: 300 }}
+            exit={{ x: 400 }}
             transition={{ duration: 0.5 }}
-            className="relative"
+            className="relative z-100"
           >
-            <div className=" w-full flex justify-end">
-              <div className="p-7 rounded-l-xl bg-[rgba(185,23,255,0.93)] absolute max-w-[70%]">
+            <div className=" w-full  flex justify-end">
+              <div className="p-7 rounded-l-xl bg-[rgba(153,168,255,0.86)] border-2 border-r-0 border-blue-200 backdrop-blur-[3px] absolute max-w-[70%]">
                 <ul className="list-none flex flex-col gap-5 text-white font-semibold">
                   <li className="flex items-center">
                     <Link href="/profile" className="flex items-center gap-2">
@@ -70,22 +66,25 @@ export default function NavBar() {
                     </Link>
                   </li>
                   <Link href={"/home"}>
-                    <li className="flex gap-1 bg-purple-400 p-1 py-3 rounded-xl">
+                    <li className="flex gap-1 bg-amber-50/40 ring-blue-600 ring-1 p-1 py-3 rounded-xl">
                       <h3>📭</h3>
                       <p>My Chats</p>
                     </li>
                   </Link>
-                  <li className="flex gap-1 bg-purple-400 p-1 py-3 rounded-xl">
-                    <h3>💻</h3>
-                    <p>My Contacts</p>
-                  </li>
+                  <Link href={"/contacts"}>
+                    <li className="flex gap-1 bg-amber-50/40 ring-blue-600 ring-1 p-1 py-3 rounded-xl">
+                      <h3>💻</h3>
+                      <p>My Contacts</p>
+                    </li>
+                  </Link>
                   <li className="flex gap-1p-1 m-0 rounded-xl">
                     <button
                       onClick={() => {
                         logout();
                       }}
-                      className="text-xl p-3 ml-auto hover:bg-red-400 transition-all:easy duration-300 hover:cursor-pointer bg-red-600 text-white rounded-xl"
+                      className="text-xl group overflow-hidden p-2 ml-auto transition-all:easy duration-300 hover:cursor-pointer  ring-2 ring-[#ff0000] relative rounded-xl"
                     >
+                      <div className="h-[100%] left-0 top-0 bg-red-500/70 -z-10 group-hover:w-full w-0 duration-400 absolute"></div>
                       LogOut
                     </button>
                   </li>

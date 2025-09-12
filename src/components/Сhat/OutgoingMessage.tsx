@@ -1,4 +1,5 @@
 import { Message } from "@/types/Message";
+import Image from "next/image";
 
 export default function OutgoingMessage({
   message,
@@ -11,7 +12,7 @@ export default function OutgoingMessage({
     <div
       className={`w-full flex justify-end ${
         isMerge ? "py-1" : "py-2"
-      } p-4 text-end`}
+      } p-4 gap-2 text-end`}
     >
       <div className="flex flex-col items-end max-w-[70%] sm:max-w-[50%]">
         {!isMerge && <h1 className="font-semibold">{message.from}</h1>}
@@ -23,6 +24,9 @@ export default function OutgoingMessage({
           {message.content}
         </p>
         <p className="text-[12px] font-semibold">19:50</p>
+      </div>
+      <div className="relative w-7 h-7 rounded-full mt-3 overflow-hidden">
+        {!isMerge && <Image src={"/ava.jpg"} alt="" fill></Image>}
       </div>
     </div>
   );

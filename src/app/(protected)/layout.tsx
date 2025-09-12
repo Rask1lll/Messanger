@@ -42,7 +42,7 @@ export default function ProtectedLayout({
   }
 
   return (
-    <div className="p-3 h-screen ">
+    <div className="p-3 not-sm:pt-5 pb-1 h-screen max-w-dvw overflow-hidden ">
       <div className="sm:h-[10%] h-[5%] not-sm:mb-3">
         <NavBar />
       </div>

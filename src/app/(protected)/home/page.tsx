@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 const re = [
   {
-    name: "reres1res1",
+    name: "reres1",
     avatar: "/ava.jpg",
   },
   {
@@ -26,7 +26,7 @@ const re = [
   },
   {
     name: "res4",
-    avatar: "/ava.jpg",
+    avatar: "/3ava.jpg",
   },
   {
     name: "res5",
@@ -42,7 +42,7 @@ const re = [
   },
   {
     name: "res8",
-    avatar: "/ava.jpg",
+    avatar: "/a2va.jpg",
   },
   {
     name: "res9",
@@ -50,7 +50,7 @@ const re = [
   },
   {
     name: "res32",
-    avatar: "/ava.jpg",
+    avatar: "/av1a.jpg",
   },
   {
     name: "res43",
@@ -153,9 +153,9 @@ const HomePage = () => {
                   return (
                     <div
                       key={contact.name}
-                      className="p-3 flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] not-last:border-b-[1px] wrap-anywhere h-[100%]  sm:h-[20%]  not-sm:h-full md:p-5 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
+                      className="p-1 flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] not-last:border-b-[1px] wrap-anywhere h-[100%]   not-sm:h-full md:p-2 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
                     >
-                      <div className="relative sm:w-20 not-sm:mb-0 sm:h-20 w-20 h-20 shrink-0 rounded-full overflow-hidden ">
+                      <div className="relative sm:w-16 not-sm:mb-0 sm:h-16 w-14 h-14 shrink-0 rounded-full overflow-hidden ">
                         <Image
                           src={contact.avatar}
                           alt=""
@@ -163,7 +163,7 @@ const HomePage = () => {
                           className="object-cover"
                         />
                       </div>
-                      <div className=" text-center max-[700px]:text-[16px]">
+                      <div className=" text-center text-base max-[700px]:text-[16px]">
                         {contact.name}
                       </div>
                     </div>

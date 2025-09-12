@@ -1,28 +1,15 @@
-export type Color = "orange" | "red" | "green" | "purple";
 export default function ProfileActions({
   em = "",
   content,
-  color,
 }: {
   em: string;
   content: string;
-  color: Color;
 }) {
   return (
     <div
-      className={`min-w-50 hover:scale-105 hover:cursor-pointer transition-all duration-150 ${
-        "bg-" +
-        color +
-        "-400" +
-        " ring-" +
-        color +
-        "-700" +
-        " inset-shadow-" +
-        color +
-        "-700"
-      } rounded-2xl p-5 inset-shadow-xs  ring-2 w-full`}
+      className={`min-w-50 hover:scale-105 text-white nth-[4]:text-black nth-[4]:bg-red-200/55 hover:cursor-pointer transition-all ring-blue-200 duration-150 rounded-2xl nth-[4]:ring-[#f08181]  nth-[2]:bg-blue-300/80 nth-[3]:bg-cyan-300/70 nth-[1]:bg-[#387effab] 300 p-5 inset-shadow-xs  ring-2 w-full`}
     >
-      <div className="text-white text-xl font-semibold flex gap-3 items-center">
+      <div className=" text-xl font-semibold flex gap-3 items-center">
         <p className="text-2xl">{em}</p>
         <p>{content}</p>
       </div>
