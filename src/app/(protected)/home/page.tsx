@@ -15,6 +15,7 @@ const re = [
   {
     name: "reres1",
     avatar: "/ava.jpg",
+    newMessage: [],
   },
   {
     name: "res2",
@@ -31,6 +32,7 @@ const re = [
   {
     name: "res5",
     avatar: "/ava.jpg",
+    newMessage: [],
   },
   {
     name: "res6",
@@ -112,7 +114,7 @@ const HomePage = () => {
           </div>
           <div className="relative not-sm:flex-col flex h-[90%] sm:h-[85%] ">
             <div className="relative min-w-[220px] max-w-full not-sm:h-[20%] sm:max-w-[30%] max-h-full ">
-              <div className=" z-10 sm:top-2  left-2 sm:w-[90%] flex justify-center absolute ">
+              <div className=" z-10 sm:top-2 not-sm:hidden left-2 sm:w-[90%] flex justify-center absolute ">
                 <motion.div
                   initial={{ x: -200 }}
                   animate={{ x: 0 }}
@@ -147,28 +149,67 @@ const HomePage = () => {
                 </motion.div>
               </div>
               <div
-                className={`sm:pt-14 pt-5 gap-2 not-sm:overflow-y-hidden pb-1 p-2 no-scroll border-1 rounded-2x border-blue-600 border-t-0 sm:overflow-x-hidden not-sm:overflow-x-scroll overflow-x-scroll h-full max-h-[100%] bg-white flex sm:flex-col sm:font-semibold sm:text-xl text-gray-600 `}
+                className={`sm:pt-14 flex-col gap-2 not-sm:overflow-y-hidden pb-1  p-2 no-scroll border-1 rounded-2x border-blue-600 border-t-0 not-sm:overflow-x-scroll overflow-x-scroll h-full max-h-[100%] bg-white flex sm:flex-col sm:font-semibold sm:text-xl text-gray-600 `}
               >
-                {re.map((contact) => {
-                  return (
+                <div className="sm:hidden h-10">
+                  <motion.div
+                    initial={{ x: -200 }}
+                    animate={{ x: 0 }}
+                    transition={{ duration: 1 }}
+                    className="h-full"
+                  >
                     <div
-                      key={contact.name}
-                      className="p-1 flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] not-last:border-b-[1px] wrap-anywhere h-[100%]   not-sm:h-full md:p-2 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
+                      className={`flex items-center px-2 gap-1 sm:gap-3 ${
+                        userSearchFocused &&
+                        "outline-blue-600 blur-none shadow-xl shadow-blue-300 "
+                      } rounded-2xl not-sm:w-[70%] w-full h-full transition-all bg-white outline-1 overflow-hidden duration-500`}
                     >
-                      <div className="relative sm:w-16 not-sm:mb-0 sm:h-16 w-14 h-14 shrink-0 rounded-full overflow-hidden ">
-                        <Image
-                          src={contact.avatar}
-                          alt=""
-                          fill
-                          className="object-cover"
-                        />
-                      </div>
-                      <div className=" text-center text-base max-[700px]:text-[16px]">
-                        {contact.name}
-                      </div>
+                      <Image
+                        src={"/search_icon.png"}
+                        width={25}
+                        height={25}
+                        alt=""
+                        className="not-sm:w-5 not-sm:h-5"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Search chats"
+                        className="ring-0 outline-0 sm:py-2  "
+                        onFocus={() => {
+                          setUserSearchFocused(true);
+                        }}
+                        onBlur={() => {
+                          setUserSearchFocused(false);
+                        }}
+                      />
                     </div>
-                  );
-                })}
+                  </motion.div>
+                </div>
+                <div className="sm:flex-col flex  gap-1">
+                  {re.map((contact) => {
+                    return (
+                      <div
+                        key={contact.name}
+                        className="p-1 hover:translate-x-1 transition-all duration-100 relative flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] h-[10%] not-last:border-b-[1px] wrap-anywhere   not-sm:h-full md:p-2 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
+                      >
+                        {contact.newMessage && (
+                          <div className="w-2 h-2 rounded-full animate-ping duration-700 absolute top-0 right-0 bg-blue-600"></div>
+                        )}
+                        <div className="relative sm:w-16 not-sm:mb-0 sm:h-16 w-14 h-14 shrink-0 rounded-full overflow-hidden ">
+                          <Image
+                            src={contact.avatar}
+                            alt=""
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className=" text-center text-base max-[700px]:text-[16px]">
+                          {contact.name}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
             <div className="relative not-sm:h-[80%] h-[100%] ">

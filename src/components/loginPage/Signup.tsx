@@ -7,6 +7,7 @@ type FormData = {
   email: string;
   password: string;
   verPassword: string;
+  userName: string;
 };
 
 const SignUp = ({ changeMode }: { changeMode: () => void }) => {
@@ -24,6 +25,7 @@ const SignUp = ({ changeMode }: { changeMode: () => void }) => {
     }
 
     const reqContent = JSON.stringify({
+      name: data.userName,
       email: data.email,
       password: data.password,
     });
@@ -79,6 +81,21 @@ const SignUp = ({ changeMode }: { changeMode: () => void }) => {
         )}
       </div>
 
+      <div className="w-[50%]">
+        <label htmlFor="userName">Write New Users name</label>
+        <input
+          id="userName"
+          type="text"
+          placeholder="User Name"
+          className="w-full text-[20px] bg-gray-200 p-1"
+          {...register("userName", {
+            minLength: { value: 3, message: "Длинна не менее 3 символов" },
+            maxLength: { value: 15, message: "Длинна не более 15 символов" },
+            required: "required",
+          })}
+        />
+      </div>
+
       <div className="w-[50%] flex gap-1 flex-col">
         <label htmlFor="password" className="block">
           Write your Password
@@ -119,7 +136,7 @@ const SignUp = ({ changeMode }: { changeMode: () => void }) => {
       </div>
 
       <button
-        className="bg-yellow-200 w-[40%] px-4 py-2 rounded-2xl disabled:opacity-60"
+        className="bg-yellow-200 w-[40%] px-4 py-2 hover:cursor-pointer hover:ring-2 ring-amber-200 rounded-2xl disabled:opacity-60"
         type="submit"
         disabled={isSubmitting}
       >

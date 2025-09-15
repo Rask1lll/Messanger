@@ -5,31 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import useAuthUser from "@/store/currentUser";
 
 export default function NavBar() {
+  const { name } = useAuthUser();
   const logout = useLogout();
   const [burgerOpen, setBurgerOpen] = useState<boolean>();
   return (
     <div className="max-h-full">
-      <div className="flex select-none  relative">
-        <div className="flex items-center max-h-full not-sm:p-1 text-xl gap-2 font-semibold bg-blue-300 rounded-2xl p-2 text-gray-500">
-          <Image
-            src={"/logo.png"}
-            width={0}
-            height={0}
-            alt=""
-            quality={100}
-            className="sm:w-13 w-10 h-10 sm:h-13 object-cover "
-            priority
-            unoptimized={true}
-          ></Image>
-          Alem
-        </div>
+      <div className="flex select-none">
         <div className="ml-auto mr-4 ">
           <div
             className={`${
               !burgerOpen ? `rotate-90` : "rotate-0"
-            } text-2xl  transition-all hover:cursor-pointer duration-500 origin-center `}
+            } text-3xl md:text-4xl  transition-all hover:cursor-pointer duration-500 origin-center `}
             onClick={() => {
               setBurgerOpen(!burgerOpen);
             }}
@@ -41,17 +30,21 @@ export default function NavBar() {
       <AnimatePresence>
         {burgerOpen && (
           <motion.div
-            initial={{ x: 300 }}
+            initial={{ x: 500 }}
             animate={{ x: 0 }}
-            exit={{ x: 400 }}
+            exit={{ x: 500, opacity: 0.2 }}
             transition={{ duration: 0.5 }}
-            className="relative z-100"
+            className="fixed md:w-[30%] max-[480px]:w-[100%] w-[50%] right-0 z-20"
           >
-            <div className=" w-full  flex justify-end">
-              <div className="p-7 rounded-l-xl bg-[rgba(153,168,255,0.86)] border-2 border-r-0 border-blue-200 backdrop-blur-[3px] absolute max-w-[70%]">
-                <ul className="list-none flex flex-col gap-5 text-white font-semibold">
-                  <li className="flex items-center">
-                    <Link href="/profile" className="flex items-center gap-2">
+            <div className="w-full">
+              <div className="p-7 rounded-l-xl bg-white border-2 border-r-0 border-blue-200 backdrop-blur-[10px] w-full absolute max-w-full">
+                <ul className="list-none flex flex-col bg-sky-100/50 p-4 shadow-xl rounded-2xl ring-1 ring-sky-300 max-w-full gap-5 text-black font-semibold">
+                  <li className="flex items-center bg">
+                    <Link
+                      href="/profile"
+                      className="flex group items-center w-full gap-2 p-1 z-10 border-blue-400 border-1 hover:border-transparent overflow-hidden duration-300 rounded-4xl relative"
+                    >
+                      <div className="absolute h-full left-0 z-100 border-blue-600 rounded-4xl duration-870 w-0 group-hover:w-full not-hover:bg-amber-50/10 group-hover:border-2 border-0 transition-all" />
                       <div className="relative rounded-4xl overflow-hidden w-20 h-20 min-w-20 min-h-20">
                         <Image
                           src={"/ava.jpg"}
@@ -60,19 +53,17 @@ export default function NavBar() {
                           className="object-cover"
                         />
                       </div>
-                      <p className="wrap-anywhere text-[13px]">
-                        Raswdwdawdwadawdawdawd
-                      </p>
+                      <p className="wrap-anywhere text-lg">{name}</p>
                     </Link>
                   </li>
                   <Link href={"/home"}>
-                    <li className="flex gap-1 bg-amber-50/40 ring-blue-600 ring-1 p-1 py-3 rounded-xl">
+                    <li className="flex gap-1 bg-white ring-blue-600 ring-1 p-1 py-3 rounded-xl">
                       <h3>📭</h3>
                       <p>My Chats</p>
                     </li>
                   </Link>
                   <Link href={"/contacts"}>
-                    <li className="flex gap-1 bg-amber-50/40 ring-blue-600 ring-1 p-1 py-3 rounded-xl">
+                    <li className="flex gap-1 bg-white animate-pulse ring-blue-600 ring-1 p-1 py-3 rounded-xl">
                       <h3>💻</h3>
                       <p>My Contacts</p>
                     </li>
@@ -82,7 +73,7 @@ export default function NavBar() {
                       onClick={() => {
                         logout();
                       }}
-                      className="text-xl group overflow-hidden p-2 ml-auto transition-all:easy duration-300 hover:cursor-pointer  ring-2 ring-[#ff0000] relative rounded-xl"
+                      className="text-xl group overflow-hidden text-black backdrop-blur-3xl p-2 ml-auto transition-all:easy duration-300 hover:cursor-pointer  ring-2 ring-gray-400 relative rounded-xl"
                     >
                       <div className="h-[100%] left-0 top-0 bg-red-500/70 -z-10 group-hover:w-full w-0 duration-400 absolute"></div>
                       LogOut

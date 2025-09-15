@@ -12,7 +12,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<UserLogin>();
 
-  const { setEmail, setAvatarURL } = useAuthUser();
+  const { setEmail, setAvatarURL, setUserName } = useAuthUser();
   const { setMessage } = useAlertStore();
   const router = useRouter();
 
@@ -30,6 +30,7 @@ const SignIn = () => {
     });
 
     const userLoginResult = await loginRes.json();
+
     if (userLoginResult.message) {
       setMessage(userLoginResult.message);
     } else if (!loginRes.ok) {
@@ -39,6 +40,7 @@ const SignIn = () => {
       localStorage.setItem("token", userLoginResult.token);
       setEmail(userLoginResult.user.email);
       setAvatarURL(userLoginResult.user.avatarUrl);
+      setUserName(userLoginResult.user.name);
       router.push("/home");
     }
   }
