@@ -4,7 +4,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loading/Loader";
-import NavBar from "@/components/navigation/NavBar";
 
 export default function ProtectedLayout({
   children,

@@ -2,16 +2,54 @@ import useAlertStore from "@/store/alertStore";
 import useAuthUser from "@/store/currentUser";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+
+interface changeUser {
+  name: string;
+  desc: string;
+}
 
 export default function ProfileEditModule({
   closeModule,
 }: {
   closeModule: () => void;
 }) {
-  const { setAvatarURL, avatarURL } = useAuthUser();
-  const { setMessage } = useAlertStore();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<changeUser>();
+  const { setAvatarURL, avatarURL, setUserDesc, setUserName } = useAuthUser();
+  const { setMessage, setIsSecure } = useAlertStore();
   const avatarRef = useRef<HTMLInputElement>(null);
   const [userAvatar, setUserAvater] = useState<string | null>(avatarURL);
+
+  async function changeUserParam(data: changeUser) {
+    const token = localStorage.getItem("token");
+    if (!data.name) return;
+
+    try {
+      const res = await fetch("http://localhost:4000/api/me", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token ?? ""}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const err = await res.text();
+        console.error("Request failed:", res.status, err);
+      }
+      setUserDesc(data.desc);
+      setUserName(data.name);
+      setMessage("User info saved");
+      setIsSecure(false);
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   async function handleUploadImage() {
     const input = avatarRef.current;
@@ -99,44 +137,60 @@ export default function ProfileEditModule({
             />
           </div>
 
-          {/* form */}
-          <div className="flex w-full flex-col gap-5">
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <label
-                htmlFor="Name"
-                className="mb-2 block text-sm font-semibold text-gray-800"
-              >
-                Input new name
-              </label>
-              <input
-                type="text"
-                placeholder="New Name"
-                id="Name"
-                className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-              />
-            </div>
+          <form onSubmit={handleSubmit(changeUserParam)}>
+            <div className="flex w-full flex-col gap-5">
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                <label
+                  htmlFor="Name"
+                  className="mb-2 block text-sm font-semibold text-gray-800"
+                >
+                  Input new name
+                </label>
+                <input
+                  type="text"
+                  placeholder="New Name"
+                  id="Name"
+                  className="block w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  {...register("name", {
+                    minLength: {
+                      value: 4,
+                      message: "Must be at least 4 letter",
+                    },
+                    maxLength: {
+                      value: 16,
+                      message: "Max is 16 letter",
+                    },
+                  })}
+                />
+                <div className="text-red-500">{errors.name?.message}</div>
+              </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
-              <label
-                htmlFor="Description"
-                className="mb-2 block text-sm font-semibold text-gray-800"
-              >
-                Input new description
-              </label>
-              <textarea
-                name="Description"
-                id="Description"
-                placeholder="New Description"
-                className="block max-h-[140px] min-h-[90px] w-full resize-none rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-              ></textarea>
-            </div>
+              <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                <label
+                  htmlFor="Description"
+                  className="mb-2 block text-sm font-semibold text-gray-800"
+                >
+                  Input new description
+                </label>
+                <textarea
+                  id="Description"
+                  placeholder="New Description"
+                  className="block max-h-[140px] min-h-[90px] w-full resize-none rounded-xl border border-gray-300 bg-white px-3 py-2 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                  {...register("desc")}
+                ></textarea>
+              </div>
 
-            <div className="flex justify-center ">
-              <button className="inline-flex w-full items-center justify-center rounded-xl border border-blue-500 bg-blue-500/90 px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 md:w-auto">
-                Edit Profile
-              </button>
+              <div className="flex justify-center ">
+                <button
+                  type="submit"
+                  typeof="PATCH"
+                  className="inline-flex w-full items-center justify-center rounded-xl border border-blue-500 bg-blue-500/90 px-5 py-3 text-base font-semibold text-white shadow-sm transition hover:bg-blue-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 md:w-auto"
+                >
+                  Edit Profile
+                </button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

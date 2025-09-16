@@ -12,7 +12,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<UserLogin>();
 
-  const { setEmail, setAvatarURL, setUserName } = useAuthUser();
+  const { setEmail, setAvatarURL, setUserName, setUserDesc } = useAuthUser();
   const { setMessage } = useAlertStore();
   const router = useRouter();
 
@@ -37,10 +37,13 @@ const SignIn = () => {
       setMessage("Login error");
       return;
     } else {
+      console.log("=------------------------------------");
+      console.log(userLoginResult.user);
       localStorage.setItem("token", userLoginResult.token);
       setEmail(userLoginResult.user.email);
       setAvatarURL(userLoginResult.user.avatarUrl);
       setUserName(userLoginResult.user.name);
+      setUserDesc(userLoginResult.user.description);
       router.push("/home");
     }
   }

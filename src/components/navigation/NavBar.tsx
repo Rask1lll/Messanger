@@ -1,6 +1,5 @@
 "use client";
 import { useLogout } from "@/utils/useLogout";
-import ProfileBar from "./ProfileBar";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";

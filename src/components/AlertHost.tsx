@@ -4,13 +4,14 @@ import { useEffect } from "react";
 import Alert from "./Alert";
 
 const AlertHost = () => {
-  const { message, clearMessage } = useAlertStore();
+  const { message, clearMessage, isSecure, setIsSecure } = useAlertStore();
   useEffect(() => {
     setTimeout(() => {
       clearMessage();
+      setIsSecure(true);
     }, 7000);
-  }, [message]);
-  return <Alert message={message} />;
+  }, [clearMessage, message]);
+  return <Alert message={message} isSecure={isSecure} />;
 };
 
 export default AlertHost;

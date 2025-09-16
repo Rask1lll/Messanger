@@ -8,7 +8,7 @@ import { useRef, useState } from "react";
 import { JSX } from "react/jsx-runtime";
 
 export default function Profile() {
-  const { email, avatarURL } = useAuthUser();
+  const { email, avatarURL, description, name } = useAuthUser();
   const [avatarHover, setAvatarHover] = useState<boolean>(false);
   const [userEditModule, setUserEditModule] = useState<JSX.Element | null>(
     null
@@ -33,7 +33,6 @@ export default function Profile() {
             closeModule();
           }
         }
-        console.log(e.target);
       }}
       className="w-full h-full left-0 "
     >
@@ -75,22 +74,19 @@ export default function Profile() {
                 ></Image>
               </div>
               <div className=" gap-2 bg-blue-200 p-3 ring ring-blue-600/30 rounded-2xl not-sm:p-4 font-semibold not-lg:text-xl flex flex-col justify-between pb-5  text-gray-600">
-                <h2 className=" not-sm:text-[16px] ring-2 rounded-xl p-2 ring-sky-500/10">
-                  👩🏼 Name: Rassul
+                <h2 className=" not-sm:text-[16px] ring-2 bg-blue-600/5 rounded-xl p-2 ring-sky-500/10">
+                  👩🏼 Name: {name}
                 </h2>
-                <h2 className=" not-sm:text-[16px] ring-2 rounded-xl p-2 ring-sky-500/10">
+                <h2 className=" not-sm:text-[16px] ring-2 bg-blue-600/5 rounded-xl p-2 ring-sky-500/10">
                   📧 Email: {email}
                 </h2>
-                <h2 className=" not-sm:text-[16px] ring-2 rounded-xl p-2 ring-sky-500/20">
+                <h2 className=" not-sm:text-[16px] ring-2 bg-blue-600/5 rounded-xl p-2 ring-sky-500/10">
                   📅 Registered: 21.01.2006
                 </h2>
               </div>
             </div>
             <div className="bg-[rgba(74,127,196,0.25)] mt-[5%] font-medium rounded-lg p-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-              debitis suscipit, nemo praesentium unde impedit dolor quia
-              inventore labore enim at repellat corporis, similique accusamus
-              velit blanditiis perspiciatis excepturi esse!
+              {description}
             </div>
           </div>
           <div className="md:w-1/3 w-full rounded-4xl ring-2 min-w-70 h-[400px] min-h-100 max-h-[400px] p-5 ring-blue-300 bg-linear-60 ">

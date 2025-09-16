@@ -8,11 +8,17 @@ interface AuthActions extends User {
   clearEmail: () => void;
   setUserName: (newname: string) => void;
   setAvatarURL: (url: string | null) => void;
+  setUserDesc: (newDesc: string) => void;
   reset: () => void;
   resetAll: () => void;
 }
 
-const initialState: User = { name: "", email: null, avatarURL: null };
+const initialState: User = {
+  name: "",
+  email: null,
+  avatarURL: null,
+  description: "",
+};
 
 const useAuthUser = create<AuthActions>()(
   persist(
@@ -23,7 +29,7 @@ const useAuthUser = create<AuthActions>()(
       clearEmail: () => set({ email: null }),
       setAvatarURL: (url) => set({ avatarURL: url }),
       setUserName: (newname) => set({ name: newname }),
-
+      setUserDesc: (newDesc) => set({ description: newDesc }),
       reset: () => set({ ...initialState }),
 
       resetAll: () => {
