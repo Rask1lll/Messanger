@@ -69,8 +69,37 @@ const HomePage = () => {
   const [userSearchFocused, setUserSearchFocused] = useState<boolean>(false);
   const { addMessage, messages } = useChatStore();
 
+  const wsRef = useRef<WebSocket | null>(null);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:4001");
+
+    wsRef.current = ws;
+
+    ws.onopen = () => {
+      console.log("Connected to Chat websocket ");
+    };
+
+    ws.onmessage = (message) => {
+      console.log(message);
+    };
+
+    ws.onclose = () => {
+      console.log("Connection closed");
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
+
+  function sendMessageToServer(message: Message) {
+    wsRef.current?.send(JSON.stringify(message));
+  }
+
   function sendMessage(message: Message) {
     addMessage(message);
+    sendMessageToServer(message);
   }
 
   useEffect(() => {
@@ -84,7 +113,6 @@ const HomePage = () => {
 
   function isMerge(index: number): boolean {
     if (messages.length === 0) return false;
-    console.log(messages[index]);
 
     if (index < 1) {
       return false;
@@ -149,7 +177,7 @@ const HomePage = () => {
                 </motion.div>
               </div>
               <div
-                className={`sm:pt-14 flex-col gap-2 not-sm:overflow-y-hidden pb-1  p-2 no-scroll border-1 rounded-2x border-blue-600 border-t-0 not-sm:overflow-x-scroll overflow-x-scroll h-full max-h-[100%] bg-white flex sm:flex-col sm:font-semibold sm:text-xl text-gray-600 `}
+                className={`sm:pt-14 flex-col not-sm:overflow-y-hidden pb-1  no-scroll border-1 rounded-2x border-blue-600 border-t-0 not-sm:overflow-x-scroll overflow-x-scroll h-full max-h-[100%] bg-white flex sm:flex-col sm:font-semibold sm:text-xl text-gray-600 `}
               >
                 <div className="sm:hidden h-10">
                   <motion.div
@@ -159,7 +187,7 @@ const HomePage = () => {
                     className="h-full"
                   >
                     <div
-                      className={`flex items-center px-2 gap-1 sm:gap-3 ${
+                      className={`flex items-center gap-1 sm:gap-3 ${
                         userSearchFocused &&
                         "outline-blue-600 blur-none shadow-xl shadow-blue-300 "
                       } rounded-2xl not-sm:w-[70%] w-full h-full transition-all bg-white outline-1 overflow-hidden duration-500`}
@@ -185,12 +213,12 @@ const HomePage = () => {
                     </div>
                   </motion.div>
                 </div>
-                <div className="sm:flex-col flex  gap-1">
+                <div className="sm:flex-col flex">
                   {re.map((contact) => {
                     return (
                       <div
                         key={contact.name}
-                        className="p-1 hover:translate-x-1 transition-all duration-100 relative flex not-sm:px-2 gap-2 card-bg not-sm:max-h-[100%] h-[10%] not-last:border-b-[1px] wrap-anywhere   not-sm:h-full md:p-2 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-gray-300 border-blue-200"
+                        className=" transition-all duration-100 relative flex not-sm:px-2 gap-2 not-sm:max-h-[100%] h-[10%] not-last:border-b-[1px] wrap-anywhere first:border-t-[1px]  not-sm:h-full md:p-2 not-sm:flex  not-sm:flex-col items-center sm:flex hover:cursor-pointer hover:bg-purple-300/15 border-blue-200/40"
                       >
                         {contact.newMessage && (
                           <div className="w-2 h-2 rounded-full animate-ping duration-700 absolute top-0 right-0 bg-blue-600"></div>

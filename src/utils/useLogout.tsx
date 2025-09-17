@@ -7,7 +7,7 @@ export function useLogout() {
   const router = useRouter();
 
   return () => {
-    resetAll(); // чистим стор и токен
-    router.push("/"); // редиректим
+    resetAll();
+    router.push("/");
   };
 }

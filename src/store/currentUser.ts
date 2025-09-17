@@ -1,6 +1,6 @@
+import { create } from "zustand";
 // store/currentUser.ts
 import { User } from "@/types/User";
-import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface AuthActions extends User {
@@ -11,6 +11,7 @@ interface AuthActions extends User {
   setUserDesc: (newDesc: string) => void;
   reset: () => void;
   resetAll: () => void;
+  setCreatedAt: (s: string) => void;
 }
 
 const initialState: User = {
@@ -18,13 +19,14 @@ const initialState: User = {
   email: null,
   avatarURL: null,
   description: "",
+  createdAt: "",
 };
 
 const useAuthUser = create<AuthActions>()(
   persist(
     (set, get) => ({
       ...initialState,
-
+      setCreatedAt: (s: string) => set({ createdAt: s }),
       setEmail: (email) => set({ email }),
       clearEmail: () => set({ email: null }),
       setAvatarURL: (url) => set({ avatarURL: url }),

@@ -4,12 +4,14 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loading/Loader";
+import useAuthUser from "@/store/currentUser";
 
 export default function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { setCreatedAt } = useAuthUser();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -26,8 +28,17 @@ export default function ProtectedLayout({
           router.replace("/");
           return;
         }
+
+        const result = await res.json();
+
+        const createdAt = (result.createdAt as Date)
+          .toLocaleString("en-US")
+          .slice(0, 10);
+        console.log(createdAt);
         setLoading(false);
-      } catch {
+        setCreatedAt(createdAt);
+      } catch (e) {
+        console.error(e);
         localStorage.removeItem("token");
         router.replace("/");
       }

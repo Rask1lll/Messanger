@@ -106,6 +106,9 @@ export const useChatStore = create<currentChat>()((set) => ({
   companion: {
     email: "Sobes@gmail.com",
     avatarURL: "/next.svg",
+    name: "PORNO",
+    description: "",
+    createdAt: "21-21-2-212",
   },
   messages: message,
   addMessage: (message) =>

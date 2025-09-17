@@ -10,7 +10,7 @@ const AlertHost = () => {
       clearMessage();
       setIsSecure(true);
     }, 7000);
-  }, [clearMessage, message]);
+  }, [clearMessage, setIsSecure, message]);
   return <Alert message={message} isSecure={isSecure} />;
 };
 

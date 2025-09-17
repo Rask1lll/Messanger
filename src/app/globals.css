@@ -65,11 +65,8 @@ body {
 }
 
 .card-bg {
-  background: rgba(88, 112, 245, 0.116);
+  background: rgba(88, 112, 245, 0.08);
   border-radius: 16px;
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
-  border: 1px solid rgb(179, 178, 252);
 }
 
 .no-scroll::-webkit-scrollbar {
