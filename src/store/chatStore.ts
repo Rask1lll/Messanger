@@ -1,116 +1,27 @@
-const message: Message[] = [
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASSUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "RASUL",
-    content: `
-    message:Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid hic nobis tempora optio, tenetur et voluptate sapiente quod accusantium a, distinctio vero rerum quam. Nostrum dolore voluptatum beatae quo iure?`,
-    createdAt: new Date(),
-    to: "",
-  },
-  {
-    from: "ayanat",
-    content: `alem`,
-    createdAt: new Date(),
-    to: "",
-  },
-];
-
 import { Message } from "@/types/Message";
 import { User } from "@/types/User";
 import { create } from "zustand";
 
 interface currentChat {
+  currentChat: string;
   companion: User;
   messages: Message[];
   addMessage: (message: Message) => void;
   setCompanion: (companion: User) => void;
   setNewChat: (newMessages: Message[]) => void;
+  setCurrentChat: (newChatId: string) => void;
 }
 export const useChatStore = create<currentChat>()((set) => ({
+  currentChat: "",
+  setCurrentChat: (id) => set({ currentChat: id }),
   companion: {
     email: "Sobes@gmail.com",
     avatarURL: "/next.svg",
-    name: "PORNO",
+    name: "TempUser",
     description: "",
     createdAt: "21-21-2-212",
   },
-  messages: message,
+  messages: [],
   addMessage: (message) =>
     set((state) => ({ messages: [...state.messages, message] })),
   setCompanion: (newCompanion) => set({ companion: newCompanion }),

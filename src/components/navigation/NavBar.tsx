@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import useAuthUser from "@/store/currentUser";
 
 export default function NavBar() {
-  const { name } = useAuthUser();
+  const { name, avatarURL } = useAuthUser();
   const logout = useLogout();
   const [burgerOpen, setBurgerOpen] = useState<boolean>();
   return (
@@ -46,7 +46,7 @@ export default function NavBar() {
                       <div className="absolute h-full left-0 z-100 border-blue-600 rounded-4xl duration-870 w-0 group-hover:w-full not-hover:bg-amber-50/10 group-hover:border-2 border-0 transition-all" />
                       <div className="relative rounded-4xl overflow-hidden w-20 h-20 min-w-20 min-h-20">
                         <Image
-                          src={"/ava.jpg"}
+                          src={avatarURL || "/"}
                           alt=""
                           fill
                           className="object-cover"

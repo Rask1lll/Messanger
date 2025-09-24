@@ -4,6 +4,7 @@ import { User } from "@/types/User";
 import { persist } from "zustand/middleware";
 
 interface AuthActions extends User {
+  setId: (newId: number) => void;
   setEmail: (email: string | null) => void;
   clearEmail: () => void;
   setUserName: (newname: string) => void;
@@ -15,6 +16,7 @@ interface AuthActions extends User {
 }
 
 const initialState: User = {
+  id: null,
   name: "",
   email: null,
   avatarURL: null,
@@ -26,6 +28,7 @@ const useAuthUser = create<AuthActions>()(
   persist(
     (set, get) => ({
       ...initialState,
+      setId: (id) => set({ id: id }),
       setCreatedAt: (s: string) => set({ createdAt: s }),
       setEmail: (email) => set({ email }),
       clearEmail: () => set({ email: null }),

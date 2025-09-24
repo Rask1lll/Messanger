@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 interface changeUser {
   name: string;
   desc: string;
+  id: number;
 }
 
 export default function ProfileEditModule({
@@ -19,7 +20,8 @@ export default function ProfileEditModule({
     handleSubmit,
     formState: { errors },
   } = useForm<changeUser>();
-  const { setAvatarURL, avatarURL, setUserDesc, setUserName } = useAuthUser();
+  const { setAvatarURL, avatarURL, setId, setUserDesc, setUserName } =
+    useAuthUser();
   const { setMessage, setIsSecure } = useAlertStore();
   const avatarRef = useRef<HTMLInputElement>(null);
   const [userAvatar, setUserAvater] = useState<string | null>(avatarURL);
@@ -42,6 +44,7 @@ export default function ProfileEditModule({
         const err = await res.text();
         console.error("Request failed:", res.status, err);
       }
+      setId(data.id);
       setUserDesc(data.desc);
       setUserName(data.name);
       setMessage("User info saved");
